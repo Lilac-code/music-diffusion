@@ -33,7 +33,7 @@ pr = Pianoroll(rolls=segments, ratio=0.032)
 batch_size = 200
 dataloader_train = DataLoader(pr, batch_size=batch_size, shuffle=True)
 
-unet = Unet(dim=12, channels=1, resnet_block_groups=3, dim_mults=(1, 2, 4, 8))
+unet = Unet(dim=48, channels=1, resnet_block_groups=3, dim_mults=(1, 2, 4, 4))
 unet.to('cuda')
 
 params = list(unet.parameters())
