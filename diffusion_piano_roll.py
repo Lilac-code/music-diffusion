@@ -79,5 +79,5 @@ for i in range(total_num_steps):
 
     delta = predicted_x0 ^ noisy_intial
     mask = np.random.binomial(1, delta*beta)
-    noisy = predicted_x0*(1-mask) + noisy * mask
+    noisy = predicted_x0*(1-mask) + noisy_intial * mask
 
