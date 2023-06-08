@@ -65,7 +65,8 @@ beta = 1.0
 ratio = 0.032
 
 tmp = np.zeros((384, 56)) # size of a piano-roll segment
-noisy = np.random.binomial(1, tmp*(1-beta)+ratio*beta)
+noisy_intial = np.random.binomial(1, tmp*(1-beta)+ratio*beta)
+noisy = np.copy(noisy_intial)
 
 for i in range(total_num_steps):
     predicted_x0 = unet(torch.from_numpy(noisy.astype(np.float32)).cuda('cuda'), 
@@ -76,7 +77,7 @@ for i in range(total_num_steps):
 
     beta = (total_num_steps-i)/total_num_steps
 
-    delta = predicted_x0 ^ noisy
+    delta = predicted_x0 ^ noisy_intial
     mask = np.random.binomial(1, delta*beta)
     noisy = predicted_x0*(1-mask) + noisy * mask
 
